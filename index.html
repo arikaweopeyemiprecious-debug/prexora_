@@ -1,0 +1,1259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b2a">
+  <meta name="description" content="PREXORA Web Solutions designs, builds, hosts, and manages digital experiences for ambitious businesses.">
+  <title>PREXORA — Thoughtful digital, built to perform</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f7f4ff;
+      --muted: #aaa9c3;
+      --bg: #080b2a;
+      --panel: #111638;
+      --line: rgba(218, 210, 255, .14);
+      --purple: #9146ff;
+      --magenta: #f334c5;
+      --accent: linear-gradient(110deg, var(--purple), var(--magenta));
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Segoe UI", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; }
+    .wrap { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--magenta);
+      font-size: .73rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { width: 22px; height: 1px; background: currentColor; content: ""; }
+    .site-header {
+      position: absolute;
+      z-index: 5;
+      inset: 0 0 auto;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .nav {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 1.08rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+    }
+    .brand-mark {
+      width: 76px;
+      height: 50px;
+      border: 0;
+      border-radius: 5px;
+      object-fit: cover;
+    }
+    .brand small {
+      display: block;
+      margin-top: -5px;
+      color: #aaa9c3;
+      font-size: .55rem;
+      font-weight: 500;
+      letter-spacing: .17em;
+    }
+    .nav-links { display: flex; align-items: center; gap: 34px; }
+    .nav-links a:not(.button) { color: #d0cde2; font-size: .87rem; transition: color .2s; }
+    .nav-links a:not(.button):hover { color: var(--magenta); }
+    .button {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 20px;
+      border: 1px solid var(--magenta);
+      border-radius: 4px;
+      background: var(--accent);
+      color: #fff;
+      font-size: .84rem;
+      font-weight: 750;
+      transition: background .2s, color .2s, transform .2s;
+    }
+    .button:hover { transform: translateY(-2px); background: transparent; color: var(--magenta); }
+    .button .arrow { font-size: 1.1rem; line-height: 1; }
+    .menu-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: rgba(11, 14, 48, .96);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .hero {
+      position: relative;
+      display: flex;
+      min-height: 750px;
+      align-items: center;
+      overflow: hidden;
+      padding: 140px 0 88px;
+      background:
+        radial-gradient(ellipse at 79% 47%, rgba(145, 70, 255, .23), transparent 36%),
+        radial-gradient(ellipse at 89% 55%, rgba(243, 52, 197, .11), transparent 32%),
+        linear-gradient(115deg, #080b2a 0%, #10143a 55%, #17113c 100%);
+    }
+    .hero-decorations { position: absolute; z-index: 1; inset: 0; overflow: hidden; pointer-events: none; }
+    .hero-ornament { position: absolute; display: block; animation: hero-drift 6s ease-in-out infinite; }
+    .hero-orb {
+      width: 15px;
+      height: 15px;
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 24px rgba(145,70,255,.55);
+    }
+    .hero-orb-one { top: 24%; left: 47%; }
+    .hero-orb-two { bottom: 12%; left: 44%; width: 10px; height: 10px; animation-delay: -2.5s; }
+    .hero-sparkle { top: 28%; right: 6%; color: #ff83df; font-size: 30px; text-shadow: 0 0 24px rgba(243,52,197,.7); animation-duration: 7s; animation-delay: -1s; }
+    .hero-code {
+      right: 5%;
+      bottom: 20%;
+      padding: 5px 10px;
+      border: 1px solid rgba(193,151,255,.45);
+      border-radius: 6px;
+      background: rgba(15,18,59,.8);
+      color: #d3b2ff;
+      font: 600 .78rem/1.5 Consolas, monospace;
+      box-shadow: 0 0 26px rgba(145,70,255,.24);
+      animation-duration: 5s;
+      animation-delay: -3s;
+    }
+    @keyframes hero-drift {
+      0%, 100% { transform: translate3d(0, 0, 0) rotate(0); }
+      50% { transform: translate3d(0, -16px, 0) rotate(8deg); }
+    }
+    .hero::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 55%;
+      height: 100%;
+      z-index: 0;
+      background-image: linear-gradient(rgba(220,205,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(220,205,255,.045) 1px, transparent 1px);
+      background-size: 54px 54px;
+      content: "";
+      mask-image: linear-gradient(90deg, transparent, #000 50%, #000);
+      pointer-events: none;
+    }
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      align-items: center;
+      grid-template-columns: 1.04fr .96fr;
+      gap: 44px;
+    }
+    .hero-copy { max-width: 610px; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      margin: 23px 0 22px;
+      font-size: clamp(3.1rem, 6.2vw, 5.35rem);
+      font-weight: 650;
+      letter-spacing: -.065em;
+      line-height: 1.03;
+    }
+    h1 em, .section-heading em {
+      color: var(--magenta);
+      font-family: var(--serif);
+      font-weight: 400;
+    }
+    .hero-copy > p { max-width: 500px; margin-bottom: 30px; color: #c0bfd3; font-size: 1.05rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; }
+    .text-link { display: inline-flex; align-items: center; gap: 9px; color: #e2e8dd; font-size: .86rem; font-weight: 600; }
+    .text-link span { color: var(--magenta); transition: transform .2s; }
+    .text-link:hover span { transform: translateX(4px); }
+    .hero-note { display: flex; align-items: center; gap: 12px; margin-top: 58px; color: var(--muted); font-size: .78rem; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--magenta); box-shadow: 0 0 16px rgba(243,52,197,.7); }
+
+    .visual { position: relative; min-height: 435px; display: grid; place-items: center; }
+    .orbit {
+      position: absolute;
+      width: min(440px, 100%);
+      aspect-ratio: 1;
+      border: 1px solid rgba(145,70,255,.22);
+      border-radius: 50%;
+    }
+    .orbit::before, .orbit::after {
+      position: absolute;
+      border: 1px solid rgba(145,70,255,.17);
+      border-radius: 50%;
+      content: "";
+    }
+    .orbit::before { inset: 11%; }
+    .orbit::after { inset: 22%; }
+    .orbit-dot { position: absolute; top: 15%; right: 16%; width: 9px; height: 9px; border-radius: 50%; background: var(--magenta); box-shadow: 0 0 18px var(--magenta); }
+    .orbit-dot.second { top: auto; right: auto; bottom: 18%; left: 15%; width: 6px; height: 6px; background: var(--purple); }
+    .hero-logo {
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: min(470px, 100%);
+      height: auto;
+      border: 1px solid rgba(193,151,255,.22);
+      border-radius: 16px;
+      box-shadow: 0 30px 90px rgba(0,0,0,.38), 0 0 55px rgba(145,70,255,.18);
+      animation: logo-bounce 3s ease-in-out infinite;
+    }
+    @keyframes logo-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-18px); }
+    }
+
+    .trust-strip { border-block: 1px solid var(--line); background: #0c1032; }
+    .trust-inner { display: flex; min-height: 90px; align-items: center; justify-content: space-between; gap: 24px; }
+    .trust-inner p { margin: 0; color: #8e978b; font-size: .76rem; }
+    .trust-list { display: flex; flex-wrap: wrap; gap: 32px; color: #dedbed; font-size: .77rem; font-weight: 600; }
+    .trust-list span { display: inline-flex; align-items: center; gap: 8px; }
+    .trust-list span::before { color: var(--magenta); content: "✳"; font-size: .78rem; }
+    .stats-strip { padding: 48px 0; border-bottom: 1px solid var(--line); background: linear-gradient(110deg, #0b0f31, #111238 55%, #190f3a); }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .stat { display: grid; justify-items: center; gap: 3px; padding: 4px 20px; text-align: center; }
+    .stat + .stat { border-left: 1px solid var(--line); }
+    .stat strong { color: var(--ink); font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 650; letter-spacing: -.06em; line-height: 1.1; }
+    .stat strong span { color: var(--magenta); }
+    .stat p { margin: 0; color: var(--muted); font-size: .8rem; }
+
+    section { scroll-margin-top: 82px; }
+    .section { padding: 112px 0; }
+    .section-heading { max-width: 650px; margin-bottom: 48px; }
+    .section-heading h2 { margin: 17px 0 13px; font-size: clamp(2.35rem, 4vw, 3.55rem); font-weight: 600; letter-spacing: -.055em; line-height: 1.12; }
+    .section-heading p { max-width: 560px; margin-bottom: 0; color: var(--muted); }
+    .services { background: #0e1233; }
+    .service-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .service-card {
+      perspective: 1200px;
+      min-height: 265px;
+      cursor: pointer;
+    }
+    .service-card-inner {
+      position: relative;
+      min-height: 265px;
+      transform-style: preserve-3d;
+      transition: transform .8s cubic-bezier(.22, 1, .36, 1);
+    }
+    .service-card:hover .service-card-inner,
+    .service-card:focus-within .service-card-inner {
+      transform: rotateY(180deg);
+    }
+    .service-card-face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 27px 24px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: linear-gradient(145deg, rgba(145,70,255,.07), rgba(255,255,255,.012));
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transition: border-color .2s, background .2s, box-shadow .2s;
+    }
+    .service-card:hover .service-card-face,
+    .service-card:focus-within .service-card-face {
+      border-color: rgba(243,52,197,.5);
+      background: rgba(145,70,255,.1);
+      box-shadow: 0 18px 40px rgba(34, 15, 60, .22);
+    }
+    .service-card-front { z-index: 2; }
+    .service-card-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(145deg, rgba(243,52,197,.12), rgba(145,70,255,.1));
+    }
+    .service-card-back .back-tag {
+      display: inline-flex;
+      align-self: flex-start;
+      margin-bottom: 18px;
+      padding: 5px 8px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      color: #f5d9ff;
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .service-card-back h3 {
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+    }
+    .service-card-back ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #d7d1f4;
+      font-size: .8rem;
+      line-height: 1.8;
+    }
+    .service-card-back li + li { margin-top: 4px; }
+    .service-icon { display: grid; width: 45px; height: 45px; margin-bottom: 29px; place-items: center; border: 1px solid rgba(145,70,255,.4); border-radius: 9px; color: #bc8aff; }
+    .service-icon svg { width: 21px; height: 21px; }
+    .service-card h3 { margin-bottom: 8px; font-size: 1.05rem; }
+    .service-card p { margin: 0; color: #a3aba0; font-size: .84rem; line-height: 1.7; }
+
+    .projects { background: #080b2a; }
+    .project-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .project-card {
+      position: relative;
+      min-width: 0;
+      min-height: 410px;
+      overflow: hidden;
+      border: 1px solid rgba(193,151,255,.28);
+      border-radius: 10px;
+      background: #111638;
+      box-shadow: 0 24px 70px rgba(0,0,0,.3);
+    }
+    .project-image, .project-screen { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .project-image { object-fit: cover; object-position: center 42%; transition: transform .6s ease; }
+    .project-screen { border: 0; background: #f9f4ed; pointer-events: none; }
+    .project-art {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 75% 15%, rgba(255,255,255,.28), transparent 40%), var(--concept-bg);
+    }
+    .project-art::before, .project-art::after { position: absolute; border-radius: 50%; content: ""; }
+    .project-art::before { top: -70px; right: -40px; width: 220px; height: 220px; background: var(--concept-accent); opacity: .23; }
+    .project-art::after { bottom: -100px; left: -45px; width: 240px; height: 240px; border: 1px solid rgba(255,255,255,.45); }
+    .concept-beauty { --concept-bg: #6b3048; --concept-accent: #ffd2dc; }
+    .concept-fitness { --concept-bg: #123b3b; --concept-accent: #76e3bd; }
+    .concept-cafe { --concept-bg: #664126; --concept-accent: #ffcf82; }
+    .concept-property { --concept-bg: #23465d; --concept-accent: #b7dcf2; }
+    .concept-education { --concept-bg: #38306d; --concept-accent: #c7b5ff; }
+    .concept-travel { --concept-bg: #154e69; --concept-accent: #89e0e6; }
+    .concept-finance { --concept-bg: #25334b; --concept-accent: #96e5c4; }
+    .concept-window {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 78%;
+      min-height: 65%;
+      padding: 16px;
+      overflow: hidden;
+      transform: translate(-50%, -50%) rotate(-2deg);
+      border: 1px solid rgba(255,255,255,.7);
+      border-radius: 8px;
+      background: rgba(255,255,255,.93);
+      color: #24223b;
+      box-shadow: 0 22px 60px rgba(0,0,0,.26);
+    }
+    .concept-window-top { display: flex; align-items: center; gap: 4px; padding-bottom: 12px; border-bottom: 1px solid rgba(30,25,55,.1); }
+    .concept-window-top i { width: 5px; height: 5px; border-radius: 50%; background: var(--concept-accent); }
+    .concept-window-top span { margin-left: auto; color: #6d6879; font-size: .48rem; font-weight: 700; letter-spacing: .12em; }
+    .concept-window-content { padding-top: 16px; }
+    .concept-window-content small { color: #777184; font-size: .48rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+    .concept-window-content strong { display: block; max-width: 90%; margin-top: 5px; color: #27233d; font-family: var(--serif); font-size: clamp(1.05rem, 2vw, 1.65rem); line-height: 1.05; }
+    .concept-window-content p { max-width: 80%; margin: 7px 0 11px; color: #716c7b; font-size: .53rem; line-height: 1.45; }
+    .concept-window-content b { display: inline-block; padding: 5px 9px; border-radius: 3px; background: var(--concept-accent); color: #27233d; font-size: .47rem; }
+    .concept-swatches { display: flex; gap: 5px; margin-top: 12px; }
+    .concept-swatches i { width: 22px; height: 22px; border-radius: 4px; background: var(--concept-accent); }
+    .concept-swatches i:nth-child(2) { opacity: .65; }
+    .concept-swatches i:nth-child(3) { opacity: .35; }
+    .concept-label {
+      position: absolute;
+      z-index: 1;
+      top: 16px;
+      left: 16px;
+      padding: 6px 9px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 30px;
+      background: rgba(8,11,42,.73);
+      color: #fff;
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+    .project-image-label {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      left: 20px;
+      z-index: 1;
+      width: fit-content;
+      padding: 8px 13px;
+      border: 1px solid rgba(218,210,255,.22);
+      border-radius: 5px;
+      background: rgba(8,11,42,.83);
+      color: #fff;
+      font-size: .82rem;
+      font-weight: 650;
+      transition: opacity .25s;
+      backdrop-filter: blur(8px);
+    }
+    .project-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      padding: clamp(24px, 5vw, 52px);
+      background: linear-gradient(90deg, rgba(8,11,42,.97) 0%, rgba(12,14,48,.9) 50%, rgba(14,12,48,.4) 100%);
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+    .project-card:hover .project-overlay, .project-card:focus-within .project-overlay { opacity: 1; }
+    .project-card:hover .project-image, .project-card:focus-within .project-image { transform: scale(1.035); }
+    .project-card:hover .project-image-label, .project-card:focus-within .project-image-label { opacity: 0; }
+    .project-info { max-width: 470px; transform: translateY(12px); transition: transform .3s ease; }
+    .project-card:hover .project-info, .project-card:focus-within .project-info { transform: translateY(0); }
+    .project-category { display: inline-flex; margin-bottom: 12px; color: #f27bdf; font-size: .7rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+    .project-info h3 { margin: 0 0 10px; font-size: clamp(1.8rem, 4vw, 2.7rem); letter-spacing: -.045em; }
+    .project-info p { margin: 0 0 18px; color: #d0cde2; font-size: .9rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+    .project-tags span { padding: 5px 10px; border: 1px solid rgba(218,210,255,.2); border-radius: 30px; background: rgba(255,255,255,.05); color: #e4dff2; font-size: .7rem; }
+    .project-link { width: fit-content; }
+    .project-link:hover { background: transparent; }
+
+    .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 90px; }
+    .about-art {
+      position: relative;
+      display: grid;
+      min-height: 410px;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: radial-gradient(circle at center, rgba(145,70,255,.2), transparent 55%), #101438;
+    }
+    .about-art::before, .about-art::after { position: absolute; border: 1px solid rgba(145,70,255,.25); border-radius: 50%; content: ""; }
+    .about-art::before { width: 260px; height: 260px; }
+    .about-art::after { width: 350px; height: 350px; border-color: rgba(243,52,197,.16); }
+    .monogram { z-index: 1; display: block; width: min(390px, 85%); height: auto; border-radius: 8px; box-shadow: 0 0 70px rgba(145,70,255,.2); }
+    .art-label { position: absolute; z-index: 1; bottom: 25px; left: 25px; color: #dedbed; font-size: .73rem; letter-spacing: .1em; text-transform: uppercase; }
+    .about-copy h2 { margin: 16px 0; font-size: clamp(2.3rem, 4vw, 3.35rem); font-weight: 600; letter-spacing: -.055em; line-height: 1.12; }
+    .about-copy > p { color: var(--muted); }
+    .value-list { display: grid; grid-template-columns: 1fr 1fr; gap: 17px 20px; margin: 28px 0 0; padding: 0; list-style: none; }
+    .value-list li { display: flex; align-items: center; gap: 10px; color: #dce2d7; font-size: .83rem; }
+    .check { display: grid; flex: 0 0 20px; width: 20px; height: 20px; place-items: center; border-radius: 50%; background: rgba(145,70,255,.2); color: #c59aff; font-size: .7rem; }
+
+    .process { background: #0e1233; }
+    .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; overflow: hidden; border: 1px solid var(--line); background: var(--line); }
+    .process-step { min-height: 208px; padding: 28px; background: #0e1233; }
+    .step-number { color: var(--magenta); font-family: var(--serif); font-size: 1.35rem; font-style: italic; }
+    .process-step h3 { margin: 28px 0 8px; font-size: 1rem; }
+    .process-step p { max-width: 280px; margin: 0; color: var(--muted); font-size: .82rem; }
+
+    .contact { padding: 100px 0; }
+    .contact-panel {
+      position: relative;
+      display: grid;
+      align-items: center;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 48px;
+      overflow: hidden;
+      padding: 55px 62px;
+      border: 1px solid rgba(145,70,255,.36);
+      border-radius: 8px;
+      background: radial-gradient(ellipse at 88% 40%, rgba(243,52,197,.15), transparent 40%), #111638;
+    }
+    .contact-panel::after { position: absolute; top: -130px; right: 15%; width: 300px; height: 300px; border: 1px solid rgba(243,52,197,.2); border-radius: 50%; content: ""; pointer-events: none; }
+    .contact-copy { position: relative; z-index: 1; max-width: 600px; }
+    .contact-copy h2 { margin: 16px 0 10px; font-size: clamp(2.1rem, 4vw, 3.3rem); font-weight: 600; letter-spacing: -.055em; line-height: 1.1; }
+    .contact-copy p { margin: 0 0 14px; color: var(--muted); }
+    .contact-email { color: #e6a3e1; font-size: .88rem; overflow-wrap: anywhere; }
+    .contact-email:hover { color: #fff; }
+    .contact-methods { display: grid; justify-items: start; gap: 10px; margin-top: 20px; }
+    .contact-method {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #e6a3e1;
+      font-size: .86rem;
+      transition: color .2s;
+    }
+    .contact-method:hover { color: #fff; }
+    .contact-method svg { width: 18px; height: 18px; color: #bd8cff; }
+    .contact-form { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-field { display: grid; gap: 7px; }
+    .form-field.full-width, .contact-form .button, .form-note { grid-column: 1 / -1; }
+    .form-field label { color: #e3dff1; font-size: .78rem; font-weight: 600; }
+    .form-field input, .form-field select, .form-field textarea {
+      width: 100%;
+      min-height: 46px;
+      padding: 11px 13px;
+      border: 1px solid rgba(218,210,255,.2);
+      border-radius: 5px;
+      outline: none;
+      background: rgba(8,11,42,.66);
+      color: var(--ink);
+      font: inherit;
+      font-size: .86rem;
+    }
+    .form-field textarea { min-height: 112px; resize: vertical; }
+    .form-field input::placeholder, .form-field textarea::placeholder { color: #8584a3; }
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--magenta); box-shadow: 0 0 0 3px rgba(243,52,197,.14); }
+    .form-field select option { background: #111638; color: var(--ink); }
+    .contact-form .button { justify-self: start; cursor: pointer; }
+    .form-note { min-height: 1.4em; margin: -5px 0 0; color: #c8b3ee; font-size: .76rem; }
+    footer { border-top: 1px solid var(--line); }
+    .footer-inner { display: flex; min-height: 90px; align-items: center; justify-content: space-between; gap: 20px; }
+    .copyright { margin: 0; color: #899186; font-size: .75rem; }
+    .footer-links { display: flex; gap: 23px; color: #b7beb3; font-size: .77rem; }
+    .footer-links a:hover { color: var(--magenta); }
+    .back-to-top {
+      position: fixed;
+      z-index: 4;
+      right: 28px;
+      bottom: 28px;
+      display: grid;
+      width: 50px;
+      height: 50px;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 8px 26px rgba(0,0,0,.32);
+      cursor: pointer;
+      opacity: 1;
+      transition: opacity .2s, transform .2s, visibility .2s;
+    }
+    .back-to-top:hover { transform: translateY(-4px); }
+    .back-to-top[hidden] { visibility: hidden; opacity: 0; pointer-events: none; }
+    .back-to-top svg { width: 21px; height: 21px; }
+
+    @media (max-width: 900px) {
+      .hero { min-height: 690px; }
+      .hero-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+      .visual { min-height: 380px; }
+      .service-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { gap: 44px; }
+      .trust-inner { align-items: flex-start; flex-direction: column; justify-content: center; padding-block: 20px; }
+      .stats-strip { padding: 38px 0; }
+      .stat { padding-inline: 12px; }
+      .contact-panel { grid-template-columns: 1fr; gap: 28px; padding: 42px; }
+      .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .project-card { min-height: 440px; }
+    }
+    @media (max-width: 680px) {
+      .wrap { width: min(100% - 36px, 520px); }
+      .nav { min-height: 72px; }
+      .menu-toggle { display: grid; place-items: center; }
+      .nav-links {
+        position: absolute;
+        top: 71px;
+        right: 0;
+        left: 0;
+        display: none;
+        align-items: stretch;
+        gap: 0;
+        padding: 10px 18px 20px;
+        border-bottom: 1px solid var(--line);
+        background: #121712;
+      }
+      .nav-links.is-open { display: flex; flex-direction: column; }
+      .nav-links a:not(.button) { padding: 12px 0; }
+      .nav-links .button { margin-top: 9px; }
+      .hero { min-height: auto; padding: 133px 0 56px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 20px; }
+      h1 { max-width: 520px; font-size: clamp(3.1rem, 14vw, 4.5rem); }
+      .hero-copy > p { font-size: .96rem; }
+      .hero-note { margin-top: 34px; }
+      .visual { min-height: 350px; }
+      .orbit { width: min(330px, 90%); }
+      .hero-sparkle { top: 35%; right: 4%; font-size: 24px; }
+      .hero-code { right: 3%; bottom: 12%; }
+      .trust-list { gap: 12px 19px; }
+      .stats-strip { padding: 28px 0; }
+      .stat { padding-inline: 8px; }
+      .stat p { max-width: 100px; font-size: .7rem; line-height: 1.4; }
+      .section { padding: 78px 0; }
+      .section-heading { margin-bottom: 32px; }
+      .service-grid { gap: 10px; }
+      .service-card { min-height: 245px; padding: 21px 17px; }
+      .service-icon { margin-bottom: 22px; }
+      .projects.section { padding-block: 78px; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-card { display: flex; min-height: 0; flex-direction: column; }
+      .project-image, .project-screen, .project-art { position: relative; inset: auto; height: 255px; flex: 0 0 255px; }
+      .project-image-label { top: 16px; right: auto; bottom: auto; left: 16px; }
+      .project-overlay { position: relative; inset: auto; padding: 22px; opacity: 1; background: #111638; }
+      .project-info { max-width: none; transform: none; }
+      .project-category { margin-bottom: 8px; }
+      .project-info h3 { font-size: 1.75rem; }
+      .project-info p { font-size: .85rem; }
+      .project-tags { margin-bottom: 18px; }
+      .project-card:hover .project-image-label, .project-card:focus-within .project-image-label { opacity: 1; }
+      .about-grid { grid-template-columns: 1fr; gap: 34px; }
+      .about-art { min-height: 310px; }
+      .about-art::after { width: 280px; height: 280px; }
+      .about-art::before { width: 205px; height: 205px; }
+      .process-grid { grid-template-columns: 1fr; }
+      .process-step { min-height: 170px; }
+      .process-step h3 { margin-top: 18px; }
+      .contact { padding: 70px 0; }
+      .contact-panel { gap: 25px; padding: 36px 25px; }
+      .contact-form { grid-template-columns: 1fr; }
+      .form-field.full-width, .contact-form .button, .form-note { grid-column: auto; }
+      .footer-inner { align-items: flex-start; flex-direction: column; justify-content: center; padding-block: 22px; }
+      .back-to-top { right: 18px; bottom: 18px; }
+    }
+    @media (max-width: 390px) {
+      .service-grid { grid-template-columns: 1fr; }
+      .service-card { min-height: 0; }
+      .service-icon { margin-bottom: 17px; }
+      .value-list { grid-template-columns: 1fr; gap: 12px; }
+      .hero-actions { align-items: flex-start; flex-direction: column; gap: 17px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+
+    .portfolio-intro {
+      position: fixed;
+      z-index: 20;
+      inset: 0;
+      display: none;
+      overflow: hidden;
+      place-items: center;
+      padding: 32px;
+      background:
+        radial-gradient(ellipse at 75% 48%, rgba(145,70,255,.25), transparent 38%),
+        linear-gradient(125deg, #080b2a, #111438 58%, #1b1040);
+    }
+    .intro-enabled body { overflow: hidden; }
+    .intro-enabled .portfolio-intro { display: grid; }
+    .intro-content {
+      display: grid;
+      width: min(940px, 100%);
+      align-items: center;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 48px;
+    }
+    .intro-copy { position: relative; z-index: 1; }
+    .intro-copy .eyebrow { color: #f27bdf; }
+    .intro-copy h1 { margin: 20px 0 16px; font-size: clamp(2.7rem, 6vw, 5rem); }
+    .intro-copy p { max-width: 470px; margin-bottom: 28px; color: #d0cde2; font-size: clamp(1.05rem, 2vw, 1.3rem); }
+    .intro-dismiss { cursor: pointer; }
+    .intro-dismiss:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+    .intro-person {
+      width: min(340px, 100%);
+      aspect-ratio: 4 / 5;
+      justify-self: center;
+      border: 1px solid rgba(218,210,255,.2);
+      border-radius: 48% 48% 12px 12px;
+      background: #19133c;
+      object-fit: cover;
+      object-position: center 30%;
+      box-shadow: 0 22px 60px rgba(0,0,0,.32), 0 0 55px rgba(145,70,255,.2);
+    }
+    .intro-prompt {
+      position: absolute;
+      right: 0;
+      bottom: 30px;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      color: #c8b3ee;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .intro-prompt span { color: #f27bdf; font-size: 1.2rem; animation: intro-arrow 1s ease-in-out infinite alternate; }
+    .portfolio-intro.is-leaving { animation: intro-lift 1.1s cubic-bezier(.76,0,.24,1) forwards; transform-origin: top; }
+    @keyframes intro-arrow {
+      to { transform: translateY(-5px); }
+    }
+    @keyframes intro-lift {
+      to { transform: translateY(-100%); visibility: hidden; }
+    }
+
+    @media (max-width: 680px) {
+      .portfolio-intro { padding: 28px 24px 72px; }
+      .intro-content { width: min(440px, 100%); grid-template-columns: 1fr; gap: 18px; text-align: center; }
+      .intro-copy .eyebrow { justify-content: center; }
+      .intro-copy h1 { margin: 14px 0 10px; font-size: clamp(2.5rem, 11vw, 4rem); }
+      .intro-copy p { margin: 0 auto 20px; font-size: 1rem; }
+      .intro-person { width: min(180px, 48vw); grid-row: 2; }
+      .intro-prompt { bottom: 20px; }
+    }
+  </style>
+  <script>document.documentElement.classList.add("intro-enabled");</script>
+</head>
+<body>
+  <section class="portfolio-intro" id="portfolio-intro" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+    <div class="intro-content">
+      <div class="intro-copy">
+        <span class="eyebrow">A personal welcome</span>
+        <h1 id="intro-title">Hi, welcome to PREXORA Web Solutions.</h1>
+        <p>Check out our portfolio.</p>
+        <button class="button intro-dismiss" type="button">Explore our portfolio <span class="arrow" aria-hidden="true">↑</span></button>
+      </div>
+      <img
+        class="intro-person"
+        src="Snapchat-2016400717.jpg"
+        alt="A smiling woman welcoming visitors to PREXORA"
+        fetchpriority="high">
+    </div>
+    <div class="intro-prompt" aria-hidden="true"><span>↑</span> Taking you to our work</div>
+  </section>
+
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="PREXORA home">
+        <img class="brand-mark" src="file_00000000551c8246a7246171c876affc.png" alt="">
+        <span>PREXORA<small>WEB SOLUTIONS</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-links">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <div class="nav-links" id="primary-links">
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#process">Our process</a>
+        <a class="button" href="#contact">Let's talk <span class="arrow" aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-decorations" aria-hidden="true">
+        <span class="hero-ornament hero-orb hero-orb-one"></span>
+        <span class="hero-ornament hero-orb hero-orb-two"></span>
+        <span class="hero-ornament hero-sparkle">✦</span>
+        <span class="hero-ornament hero-code">&lt;/&gt;</span>
+      </div>
+      <div class="hero-grid wrap">
+        <div class="hero-copy">
+          <span class="eyebrow">Digital solutions, made personal</span>
+          <h1>Good ideas deserve a <em>great website.</em></h1>
+          <p>We design, build, and support digital experiences that help your business move forward — from the first sketch to reliable hosting and beyond.</p>
+          <div class="hero-actions">
+            <a class="button" href="#contact">Start a conversation <span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="text-link" href="#services">Explore what we do <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="hero-note"><span class="status-dot" aria-hidden="true"></span> One team for your whole digital journey</div>
+        </div>
+        <div class="visual">
+          <div class="orbit"><span class="orbit-dot"></span><span class="orbit-dot second"></span></div>
+          <img class="hero-logo" src="file_00000000c0ec81f5824bff57586e373f.png" alt="PREXORA Web Solutions — Build, Innovate, Grow">
+        </div>
+      </div>
+    </section>
+
+    <div class="trust-strip" aria-label="Our core capabilities">
+      <div class="trust-inner wrap">
+        <p>Everything you need to make digital work for you.</p>
+        <div class="trust-list"><span>Web design</span><span>Development</span><span>Hosting</span><span>Data &amp; databases</span></div>
+      </div>
+    </div>
+
+    <section class="stats-strip" aria-label="PREXORA at a glance">
+      <div class="stats-grid wrap">
+        <div class="stat">
+          <strong>3<span>+</span></strong>
+          <p>Years of experience</p>
+        </div>
+        <div class="stat">
+          <strong>10</strong>
+          <p>Featured projects</p>
+        </div>
+        <div class="stat">
+          <strong>4</strong>
+          <p>Core digital services</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section services" id="services">
+      <div class="wrap">
+        <div class="section-heading">
+          <span class="eyebrow">What we do</span>
+          <h2>All the right pieces.<br><em>Working together.</em></h2>
+          <p>Whether you're starting fresh or improving what you have, we bring design, technology, and dependable support under one roof.</p>
+        </div>
+        <div class="service-grid">
+          <article class="service-card" tabindex="0">
+            <div class="service-card-inner">
+              <div class="service-card-face service-card-front">
+                <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01M8 13h8M8 16h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                <h3>Web design</h3>
+                <p>Clear, considered websites that reflect your brand and make it easy for customers to take the next step.</p>
+              </div>
+              <div class="service-card-face service-card-back">
+                <span class="back-tag">Includes</span>
+                <h3>Web design</h3>
+                <ul>
+                  <li>Brand-aligned layouts</li>
+                  <li>User-focused UX</li>
+                  <li>Conversion-ready pages</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+          <article class="service-card" tabindex="0">
+            <div class="service-card-inner">
+              <div class="service-card-face service-card-front">
+                <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 2.9 8.1 7 10 4.1-1.9 7-5.5 7-10V6l-7-3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <h3>Web hosting</h3>
+                <p>Dependable hosting and practical site care to help keep your website secure, available, and running smoothly.</p>
+              </div>
+              <div class="service-card-face service-card-back">
+                <span class="back-tag">Includes</span>
+                <h3>Web hosting</h3>
+                <ul>
+                  <li>Reliable uptime</li>
+                  <li>Fast performance</li>
+                  <li>Ongoing support</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+          <article class="service-card" tabindex="0">
+            <div class="service-card-inner">
+              <div class="service-card-face service-card-front">
+                <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <h3>Programming</h3>
+                <p>Thoughtful development and custom functionality that solve real problems and grow with your business.</p>
+              </div>
+              <div class="service-card-face service-card-back">
+                <span class="back-tag">Includes</span>
+                <h3>Programming</h3>
+                <ul>
+                  <li>Custom builds</li>
+                  <li>Automation tools</li>
+                  <li>Business logic</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+          <article class="service-card" tabindex="0">
+            <div class="service-card-inner">
+              <div class="service-card-face service-card-front">
+                <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7" stroke="currentColor" stroke-width="1.5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" stroke="currentColor" stroke-width="1.5"/></svg></div>
+                <h3>Database management</h3>
+                <p>Structured, well-managed data systems that keep important information organized and accessible.</p>
+              </div>
+              <div class="service-card-face service-card-back">
+                <span class="back-tag">Includes</span>
+                <h3>Database management</h3>
+                <ul>
+                  <li>Clean data systems</li>
+                  <li>Smart organization</li>
+                  <li>Reliable access</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section projects" id="projects">
+      <div class="wrap">
+        <div class="section-heading">
+          <span class="eyebrow">Selected work</span>
+          <h2>Made for people.<br><em>Built to move business.</em></h2>
+          <p>Explore three live PREXORA projects and seven illustrative concept studies. Concept studies are design explorations, not completed client work.</p>
+        </div>
+        <div class="project-grid">
+          <article class="project-card">
+            <img
+              class="project-image"
+              src="https://kashamfootwears.vercel.app/half-01.jpg"
+              alt="Women's footwear from the Kasham Footwears online shop"
+              loading="lazy"
+              referrerpolicy="no-referrer">
+            <span class="project-image-label">Kasham Footwears</span>
+            <div class="project-overlay">
+              <div class="project-info">
+                <span class="project-category">E-commerce · Footwear</span>
+                <h3>Kasham Footwears</h3>
+                <p>An online footwear store featuring shoes and slides, with product discovery, category browsing, and WhatsApp ordering.</p>
+                <div class="project-tags" aria-label="Project features">
+                  <span>Online storefront</span>
+                  <span>Product browsing</span>
+                  <span>WhatsApp ordering</span>
+                </div>
+                <a class="button project-link" href="https://kashamfootwears.vercel.app/" target="_blank" rel="noopener noreferrer">
+                  Visit live website <span class="arrow" aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          </article>
+          <article class="project-card">
+            <iframe
+              class="project-screen"
+              src="https://events-nine-ochre.vercel.app/"
+              title="Live preview of the Aurelia Events &amp; Decor website"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+              sandbox="allow-scripts"></iframe>
+            <span class="project-image-label">Aurelia Events &amp; Decor</span>
+            <div class="project-overlay">
+              <div class="project-info">
+                <span class="project-category">Events · Planning &amp; decor</span>
+                <h3>Aurelia Events &amp; Decor</h3>
+                <p>An elegant event-planning website showcasing wedding styling, birthday celebrations, and personalized event services.</p>
+                <div class="project-tags" aria-label="Project features">
+                  <span>Event planning</span>
+                  <span>Services &amp; gallery</span>
+                  <span>Enquiry form</span>
+                </div>
+                <a class="button project-link" href="https://events-nine-ochre.vercel.app/" target="_blank" rel="noopener noreferrer">
+                  Visit live website <span class="arrow" aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          </article>
+          <article class="project-card">
+            <iframe
+              class="project-screen"
+              src="https://dafna-xfoz.vercel.app/"
+              title="Live preview of the Dafna Business Radio website"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+              sandbox="allow-scripts"></iframe>
+            <span class="project-image-label">Dafna Business Radio</span>
+            <div class="project-overlay">
+              <div class="project-info">
+                <span class="project-category">Broadcasting · Media</span>
+                <h3>Dafna Business Radio</h3>
+                <p>A business radio website sharing programmes, news, advertising information, and community stories, with a Listen Live experience.</p>
+                <div class="project-tags" aria-label="Project features">
+                  <span>Radio programmes</span>
+                  <span>News &amp; stories</span>
+                  <span>Listen live</span>
+                </div>
+                <a class="button project-link" href="https://dafna-xfoz.vercel.app/" target="_blank" rel="noopener noreferrer">
+                  Visit live website <span class="arrow" aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-art concept-beauty" role="img" aria-label="Illustrative beauty and skincare storefront design concept">
+              <div class="concept-window">
+                <div class="concept-window-top"><i></i><i></i><i></i><span>GLOW / SKIN</span></div>
+                <div class="concept-window-content"><small>Everyday ritual</small><strong>Glow, your way.</strong><p>Thoughtful skincare for your daily routine.</p><b>SHOP THE EDIT</b><div class="concept-swatches"><i></i><i></i><i></i></div></div>
+              </div>
+            </div>
+            <span class="concept-label">Concept study</span>
+            <span class="project-image-label">Beauty &amp; skincare</span>
+            <div class="project-overlay"><div class="project-info"><span class="project-category">Concept study · E-commerce</span><h3>Beauty storefront concept</h3><p>An illustrative skincare shop concept with a polished product range and a simple, guided shopping journey.</p><div class="project-tags"><span>Product storefront</span><span>Beauty branding</span><span>Responsive layout</span></div><a class="button project-link" href="#contact">Discuss a similar project <span class="arrow" aria-hidden="true">↗</span></a></div></div>
+          </article>
+          <article class="project-card">
+            <div class="project-art concept-fitness" role="img" aria-label="Illustrative fitness studio and class booking design concept">
+              <div class="concept-window">
+                <div class="concept-window-top"><i></i><i></i><i></i><span>MOVE / CLUB</span></div>
+                <div class="concept-window-content"><small>Find your pace</small><strong>Stronger starts here.</strong><p>Classes and coaching made to fit your goals.</p><b>FIND A CLASS</b><div class="concept-swatches"><i></i><i></i><i></i></div></div>
+              </div>
+            </div>
+            <span class="concept-label">Concept study</span>
+            <span class="project-image-label">Fitness &amp; wellness</span>
+            <div class="project-overlay"><div class="project-info"><span class="project-category">Concept study · Fitness</span><h3>Fitness studio concept</h3><p>An energetic studio site concept for discovering classes, trainers, and membership options.</p><div class="project-tags"><span>Class discovery</span><span>Memberships</span><span>Mobile-first</span></div><a class="button project-link" href="#contact">Discuss a similar project <span class="arrow" aria-hidden="true">↗</span></a></div></div>
+          </article>
+          <article class="project-card">
+            <div class="project-art concept-cafe" role="img" aria-label="Illustrative cafe website and menu design concept">
+              <div class="concept-window">
+                <div class="concept-window-top"><i></i><i></i><i></i><span>THE DAILY CUP</span></div>
+                <div class="concept-window-content"><small>Freshly brewed</small><strong>A little pause, a lot of flavor.</strong><p>Good coffee, warm plates, and a place to stay.</p><b>EXPLORE OUR MENU</b><div class="concept-swatches"><i></i><i></i><i></i></div></div>
+              </div>
+            </div>
+            <span class="concept-label">Concept study</span>
+            <span class="project-image-label">Cafe &amp; hospitality</span>
+            <div class="project-overlay"><div class="project-info"><span class="project-category">Concept study · Hospitality</span><h3>Cafe website concept</h3><p>A warm hospitality concept highlighting the menu, atmosphere, opening details, and ways to visit.</p><div class="project-tags"><span>Digital menu</span><span>Brand storytelling</span><span>Contact details</span></div><a class="button project-link" href="#contact">Discuss a similar project <span class="arrow" aria-hidden="true">↗</span></a></div></div>
+          </article>
+          <article class="project-card">
+            <div class="project-art concept-property" role="img" aria-label="Illustrative real estate property search and listing design concept">
+              <div class="concept-window">
+                <div class="concept-window-top"><i></i><i></i><i></i><span>OPEN / HOUSE</span></div>
+                <div class="concept-window-content"><small>Spaces to call home</small><strong>Find your next address.</strong><p>Explore thoughtfully selected homes and spaces.</p><b>VIEW PROPERTIES</b><div class="concept-swatches"><i></i><i></i><i></i></div></div>
+              </div>
+            </div>
+            <span class="concept-label">Concept study</span>
+            <span class="project-image-label">Property &amp; real estate</span>
+            <div class="project-overlay"><div class="project-info"><span class="project-category">Concept study · Real estate</span><h3>Property showcase concept</h3><p>A clear property-browsing concept with featured listings and inquiry paths for prospective buyers.</p><div class="project-tags"><span>Property listings</span><span>Search filters</span><span>Enquiry flow</span></div><a class="button project-link" href="#contact">Discuss a similar project <span class="arrow" aria-hidden="true">↗</span></a></div></div>
+          </article>
+          <article class="project-card">
+            <div class="project-art concept-education" role="img" aria-label="Illustrative online learning platform and course design concept">
+              <div class="concept-window">
+                <div class="concept-window-top"><i></i><i></i><i></i><span>LEARN / WELL</span></div>
+                <div class="concept-window-content"><small>Learn something new</small><strong>Make room to grow.</strong><p>Courses and practical lessons for curious minds.</p><b>EXPLORE COURSES</b><div class="concept-swatches"><i></i><i></i><i></i></div></div>
+              </div>
+            </div>
+            <span class="concept-label">Concept study</span>
+            <span class="project-image-label">Education &amp; e-learning</span>
+            <div class="project-overlay"><div class="project-info"><span class="project-category">Concept study · Education</span><h3>Online learning concept</h3><p>An approachable learning portal concept for browsing courses and finding a path through new skills.</p><div class="project-tags"><span>Course discovery</span><span>Learning portal</span><span>Clear navigation</span></div><a class="button project-link" href="#contact">Discuss a similar project <span class="arrow" aria-hidden="true">↗</span></a></div></div>
+          </article>
+          <article class="project-card">
+            <div class="project-art concept-travel" role="img" aria-label="Illustrative travel destination discovery and itinerary design concept">
+              <div class="concept-window">
+                <div class="concept-window-top"><i></i><i></i><i></i><span>ROAM / MORE</span></div>
+                <div class="concept-window-content"><small>Go somewhere wonderful</small><strong>Your next story starts here.</strong><p>Find inspiring escapes and plan a trip your way.</p><b>EXPLORE DESTINATIONS</b><div class="concept-swatches"><i></i><i></i><i></i></div></div>
+              </div>
+            </div>
+            <span class="concept-label">Concept study</span>
+            <span class="project-image-label">Travel &amp; tourism</span>
+            <div class="project-overlay"><div class="project-info"><span class="project-category">Concept study · Travel</span><h3>Travel discovery concept</h3><p>A destination-led travel concept for exploring trip ideas, useful guides, and sample itineraries.</p><div class="project-tags"><span>Destination guides</span><span>Trip inspiration</span><span>Itinerary ideas</span></div><a class="button project-link" href="#contact">Discuss a similar project <span class="arrow" aria-hidden="true">↗</span></a></div></div>
+          </article>
+          <article class="project-card">
+            <div class="project-art concept-finance" role="img" aria-label="Illustrative small business finance dashboard design concept">
+              <div class="concept-window">
+                <div class="concept-window-top"><i></i><i></i><i></i><span>LEDGER / LANE</span></div>
+                <div class="concept-window-content"><small>Know where you stand</small><strong>Your business, at a glance.</strong><p>A simple view of cash flow and everyday finances.</p><b>EXPLORE THE DASHBOARD</b><div class="concept-swatches"><i></i><i></i><i></i></div></div>
+              </div>
+            </div>
+            <span class="concept-label">Concept study</span>
+            <span class="project-image-label">Business &amp; finance</span>
+            <div class="project-overlay"><div class="project-info"><span class="project-category">Concept study · Business tools</span><h3>Business dashboard concept</h3><p>An illustrative dashboard concept that makes key business metrics feel organized and easy to scan.</p><div class="project-tags"><span>Dashboard UI</span><span>Data visualization</span><span>Business tools</span></div><a class="button project-link" href="#contact">Discuss a similar project <span class="arrow" aria-hidden="true">↗</span></a></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="about-grid wrap">
+        <div class="about-art" role="img" aria-label="PREXORA brand mark on a dark background">
+          <img class="monogram" src="file_00000000551c8246a7246171c876affc.png" alt="">
+          <span class="art-label">Ideas into impact</span>
+        </div>
+        <div class="about-copy">
+          <span class="eyebrow">A little about us</span>
+          <h2>Your digital partner, from first idea to what's next.</h2>
+          <p>PREXORA Web Solutions brings the essentials of a strong online presence together. We pair thoughtful design with reliable technology, so you have a clear path from idea to launch — and support as you grow.</p>
+          <ul class="value-list">
+            <li><span class="check" aria-hidden="true">✓</span> Solutions shaped around you</li>
+            <li><span class="check" aria-hidden="true">✓</span> Design with purpose</li>
+            <li><span class="check" aria-hidden="true">✓</span> Practical, modern technology</li>
+            <li><span class="check" aria-hidden="true">✓</span> Support beyond launch</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section process" id="process">
+      <div class="wrap">
+        <div class="section-heading">
+          <span class="eyebrow">How we work</span>
+          <h2>A straightforward path<br><em>to something great.</em></h2>
+          <p>Good work starts with listening. Then we make a clear plan and bring it to life together.</p>
+        </div>
+        <div class="process-grid">
+          <article class="process-step"><span class="step-number">01</span><h3>Discover</h3><p>We learn about your goals, your audience, and what success looks like for your business.</p></article>
+          <article class="process-step"><span class="step-number">02</span><h3>Design &amp; build</h3><p>We shape the right solution, share progress, and build with care at every step.</p></article>
+          <article class="process-step"><span class="step-number">03</span><h3>Launch &amp; support</h3><p>We get you ready for launch and help keep your digital foundations in good shape.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="contact-panel wrap">
+        <div class="contact-copy">
+          <span class="eyebrow">Have a project in mind?</span>
+          <h2>Let's make it happen.</h2>
+          <p>Tell us a little about your project. We'd love to hear from you.</p>
+          <div class="contact-methods" aria-label="Contact PREXORA">
+            <a class="contact-method contact-email" href="mailto:prexorawebsolutions@gmail.com">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 6.5 12 13l9-6.5M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              prexorawebsolutions@gmail.com
+            </a>
+            <a class="contact-method" href="tel:+2349125652800" aria-label="Call PREXORA at 09125652800">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7.2 3.5H4.5a1 1 0 0 0-1 1.1c.6 8.3 7.2 14.9 15.5 15.5a1 1 0 0 0 1.1-1v-2.7a1 1 0 0 0-.8-1l-3.4-.7a1 1 0 0 0-1 .4l-1.5 2a15.4 15.4 0 0 1-6-6l2-1.5a1 1 0 0 0 .4-1l-.7-3.4a1 1 0 0 0-1-.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Call: 09125652800
+            </a>
+            <a class="contact-method" href="https://wa.me/2349125652800" target="_blank" rel="noopener noreferrer" aria-label="Chat with PREXORA on WhatsApp at +2349125652800">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 11.6a8 8 0 0 1-11.8 7l-4.2 1.1 1.1-4.1A8 8 0 1 1 20 11.6Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.5c.3-.5.6-.5.9-.5.2 0 .4 0 .6.5l.8 1.7c.1.3.1.5-.1.7l-.6.7a6.3 6.3 0 0 0 2.8 2.8l.7-.6c.2-.2.5-.2.7-.1l1.7.8c.5.2.5.4.5.6 0 .3 0 .6-.5.9-.5.3-1.2.4-2 .2-1-.2-2.3-.8-3.7-2.2-1.4-1.4-2-2.7-2.2-3.7-.2-.8-.1-1.5.2-2Z" fill="currentColor"/></svg>
+              WhatsApp: +2349125652800
+            </a>
+          </div>
+        </div>
+        <form class="contact-form" id="contact-form">
+          <div class="form-field">
+            <label for="contact-name">Your name</label>
+            <input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Jane Smith" maxlength="100" required>
+          </div>
+          <div class="form-field">
+            <label for="contact-email">Email address</label>
+            <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="jane@example.com" maxlength="254" required>
+          </div>
+          <div class="form-field full-width">
+            <label for="contact-service">What can we help with?</label>
+            <select id="contact-service" name="service" required>
+              <option value="" selected disabled>Select a service</option>
+              <option>Web design</option>
+              <option>Web hosting</option>
+              <option>Programming</option>
+              <option>Database management</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="form-field full-width">
+            <label for="contact-message">A little about your project</label>
+            <textarea id="contact-message" name="message" placeholder="What are you looking to build?" maxlength="3000" required></textarea>
+          </div>
+          <button class="button" type="submit">Prepare your message <span class="arrow" aria-hidden="true">↗</span></button>
+          <p class="form-note" id="form-note" aria-live="polite">Submitting opens your email app so you can review and send your message.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner wrap">
+      <a class="brand" href="#home" aria-label="PREXORA home">
+        <img class="brand-mark" src="file_00000000551c8246a7246171c876affc.png" alt="">
+        <span>PREXORA<small>WEB SOLUTIONS</small></span>
+      </a>
+      <p class="copyright">© <span id="year">2026</span> PREXORA Web Solutions. All rights reserved.</p>
+      <div class="footer-links"><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a></div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" type="button" aria-label="Back to top" title="Back to top" hidden>
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V5m-7 7 7-7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <script>
+    const introOverlay = document.querySelector("#portfolio-intro");
+    const introDismissButton = document.querySelector(".intro-dismiss");
+
+    if (document.documentElement.classList.contains("intro-enabled")) {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const introVoiceText = "Hi, welcome to PREXORA Web Solutions. Check out our portfolio.";
+      let introVoiceStarted = false;
+
+      const playIntroVoice = () => {
+        if (introVoiceStarted || !("speechSynthesis" in window)) return;
+
+        introVoiceStarted = true;
+        const utterance = new SpeechSynthesisUtterance(introVoiceText);
+        utterance.lang = "en-US";
+        utterance.rate = 0.95;
+        utterance.pitch = 1.1;
+        utterance.volume = 1;
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utterance);
+      };
+
+      const dismissIntro = () => {
+        if (introOverlay.classList.contains("is-leaving")) return;
+        introOverlay.classList.add("is-leaving");
+        window.setTimeout(() => {
+          introOverlay.remove();
+          document.documentElement.classList.remove("intro-enabled");
+        }, reducedMotion ? 20 : 1100);
+      };
+
+      introDismissButton.focus();
+      window.setTimeout(() => {
+        if (document.documentElement.classList.contains("intro-enabled")) {
+          playIntroVoice();
+        }
+      }, 1000);
+      window.setTimeout(dismissIntro, 5000);
+
+      introDismissButton.addEventListener("click", () => {
+        playIntroVoice();
+        dismissIntro();
+      });
+      document.addEventListener("pointerdown", playIntroVoice, { once: true });
+      document.addEventListener("keydown", (event) => {
+        if (!document.documentElement.classList.contains("intro-enabled")) return;
+        if (event.key === "Escape") dismissIntro();
+        if (event.key === "Tab") {
+          event.preventDefault();
+          introDismissButton.focus();
+        }
+      });
+    }
+
+    const menuButton = document.querySelector(".menu-toggle");
+    const navigation = document.querySelector(".nav-links");
+    const contactForm = document.querySelector("#contact-form");
+    const formNote = document.querySelector("#form-note");
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Open navigation menu" : "Close navigation menu");
+      navigation.classList.toggle("is-open", !isOpen);
+    });
+
+    navigation.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Open navigation menu");
+        navigation.classList.remove("is-open");
+      }
+    });
+
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!contactForm.reportValidity()) return;
+
+      const formData = new FormData(contactForm);
+      const subject = `Project enquiry: ${formData.get("service")}`;
+      const body = [
+        `Name: ${formData.get("name")}`,
+        `Email: ${formData.get("email")}`,
+        `Service: ${formData.get("service")}`,
+        "",
+        formData.get("message")
+      ].join("\n");
+      const mailto = `mailto:prexorawebsolutions@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const whatsappNumber = "2349125652800";
+      const whatsappMessage = encodeURIComponent(`Hello PREXORA, I would like to discuss my project.\n\nName: ${formData.get("name")}\nEmail: ${formData.get("email")}\nService: ${formData.get("service")}\n\nProject details:\n${formData.get("message")}`);
+
+      formNote.textContent = "Your email app should open with your message ready to review and send. If it doesn't, email prexorawebsolutions@gmail.com or chat on WhatsApp: +234 912 565 2800.";
+      window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, "_blank", "noopener,noreferrer");
+      window.location.href = mailto;
+    });
+
+    const backToTopButton = document.querySelector(".back-to-top");
+    const updateBackToTopVisibility = () => {
+      backToTopButton.hidden = window.scrollY < 320;
+    };
+
+    window.addEventListener("scroll", updateBackToTopVisibility, { passive: true });
+    updateBackToTopVisibility();
+
+    backToTopButton.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth"
+      });
+    });
+
+    document.querySelector("#year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
