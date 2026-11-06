@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#080b2a">
   <meta name="description" content="PREXORA Web Solutions designs, builds, hosts, and manages digital experiences for ambitious businesses.">
+  <meta property="og:title" content="PREXORA — Thoughtful digital, built to perform">
+  <meta property="og:description" content="Web design, web hosting, programming, and database management for businesses ready to grow.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://prexorawebsolutions.com/">
+  <meta property="og:image" content="https://prexorawebsolutions.com/file_00000000c0ec81f5824bff57586e373f.png">
+  <meta property="og:image:alt" content="PREXORA Web Solutions logo">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PREXORA — Thoughtful digital, built to perform">
+  <meta name="twitter:description" content="Web design, web hosting, programming, and database management for businesses ready to grow.">
+  <meta name="twitter:image" content="https://prexorawebsolutions.com/file_00000000c0ec81f5824bff57586e373f.png">
+  <link rel="canonical" href="https://prexorawebsolutions.com/">
   <title>PREXORA — Thoughtful digital, built to perform</title>
   <style>
     :root {
@@ -1231,7 +1242,8 @@
       ].join("\n");
       const mailto = `mailto:prexorawebsolutions@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       const whatsappNumber = "2349125652800";
-      const whatsappMessage = encodeURIComponent(`Hello PREXORA, I would like to discuss my project.\n\nName: ${formData.get("name")}\nEmail: ${formData.get("email")}\nService: ${formData.get("service")}\n\nProject details:\n${formData.get("message")}`);
+      const websiteUrl = "https://prexorawebsolutions.com/";
+      const whatsappMessage = encodeURIComponent(`Hello PREXORA, I would like to discuss my project.\n\nName: ${formData.get("name")}\nEmail: ${formData.get("email")}\nService: ${formData.get("service")}\n\nProject details:\n${formData.get("message")}\n\nWebsite: ${websiteUrl}`);
 
       formNote.textContent = "Your email app should open with your message ready to review and send. If it doesn't, email prexorawebsolutions@gmail.com or chat on WhatsApp: +234 912 565 2800.";
       window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, "_blank", "noopener,noreferrer");
